@@ -19,7 +19,7 @@ function Sites(config) {
 Object.defineProperty(Sites.prototype, "sites", {
   get: function() {
     var s = JSON.parse(localStorage.sites);
-    var sites = {}
+    var sites = {};
     for (var site in s) {
       if (s.hasOwnProperty(site) && !this._config.isIgnoredSite(site)) {
         sites[site] = s[site];
@@ -48,16 +48,16 @@ Sites.prototype._updateTime = function() {
     return;
   }
   var delta = new Date() - this._startTime;
-  console.log("Site: " + this._currentSite + " Delta = " + delta/1000);
-  if (delta/1000/60 > 2*this._config.updateTimePeriodMinutes) {
-    console.log("Delta of " + delta/1000 + " seconds too long; ignored.");
+  console.log("Site: " + this._currentSite + " Delta = " + delta / 1000);
+  if (delta / 1000 / 60 > 2 * this._config.updateTimePeriodMinutes) {
+    console.log("Delta of " + delta / 1000 + " seconds too long; ignored.");
     return;
   }
   var sites = this.sites;
   if (!sites[this._currentSite]) {
     sites[this._currentSite] = 0;
   }
-  sites[this._currentSite] += delta/1000;
+  sites[this._currentSite] += delta / 1000;
   localStorage.sites = JSON.stringify(sites);
 };
 
@@ -67,19 +67,28 @@ Sites.prototype._updateTime = function() {
  */
 Sites.prototype.setCurrentFocus = function(url) {
   console.log("setCurrentFocus: " + url);
+  console.log('fabio @', new Date(), ': ', url);
   this._updateTime();
   if (url == null) {
     this._currentSite = null;
     this._startTime = null;
     chrome.browserAction.setIcon(
-        {path: {19: 'images/icon_paused19.png',
-                38: 'images/icon_paused38.png'}});
+      {
+        path: {
+          19: 'images/icon_paused19.png',
+          38: 'images/icon_paused38.png'
+        }
+      });
   } else {
     this._currentSite = this.getSiteFromUrl(url);
     this._startTime = new Date();
     chrome.browserAction.setIcon(
-        {path: {19: 'images/icon19.png',
-                38: 'images/icon38.png'}});
+      {
+        path: {
+          19: 'images/icon19.png',
+          38: 'images/icon38.png'
+        }
+      });
   }
 };
 
