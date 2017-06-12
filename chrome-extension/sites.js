@@ -49,6 +49,7 @@ Sites.prototype._updateTime = function() {
   }
   var delta = new Date() - this._startTime;
   console.log("Site: " + this._currentSite + " Delta = " + delta / 1000);
+  console.log(new Date(), "(" + delta / 1000 + " secs):", this._currentSite);
   if (delta / 1000 / 60 > 2 * this._config.updateTimePeriodMinutes) {
     console.log("Delta of " + delta / 1000 + " seconds too long; ignored.");
     return;
@@ -67,7 +68,6 @@ Sites.prototype._updateTime = function() {
  */
 Sites.prototype.setCurrentFocus = function(url) {
   console.log("setCurrentFocus: " + url);
-  console.log('fabio @', new Date(), ': ', url);
   this._updateTime();
   if (url == null) {
     this._currentSite = null;

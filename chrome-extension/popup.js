@@ -3,9 +3,12 @@ _gaq.push(['_setAccount', 'UA-45267314-2']);
 _gaq.push(['_trackPageview']);
 
 (function() {
-  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  var ga = document.createElement('script');
+  ga.type = 'text/javascript';
+  ga.async = true;
   ga.src = 'https://ssl.google-analytics.com/ga.js';
-  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  var s = document.getElementsByTagName('script')[0];
+  s.parentNode.insertBefore(ga, s);
 })();
 
 var config = new Config();
@@ -14,16 +17,19 @@ var gsites = new Sites(config);
 function addIgnoredSite(new_site) {
   return function() {
     chrome.extension.sendRequest(
-       {action: "addIgnoredSite", site: new_site},
-       function(response) {
-         initialize();
-       });
+      {
+        action: "addIgnoredSite",
+        site: new_site
+      },
+      function(response) {
+        initialize();
+      });
   };
 }
 
 function secondsToString(seconds) {
   if (config.timeDisplayFormat == Config.timeDisplayFormatEnum.MINUTES) {
-    return (seconds/60).toFixed(2);
+    return (seconds / 60).toFixed(2);
   }
   var years = Math.floor(seconds / 31536000);
   var days = Math.floor((seconds % 31536000) / 86400);
@@ -60,17 +66,17 @@ function addLocalDisplay() {
   var sortedSites = new Array();
   var totalTime = 0;
   for (site in sites) {
-   sortedSites.push([site, sites[site]]);
-   totalTime += sites[site];
+    sortedSites.push([site, sites[site]]);
+    totalTime += sites[site];
   }
   sortedSites.sort(function(a, b) {
-   return b[1] - a[1];
+    return b[1] - a[1];
   });
 
   /* Show only the top 15 sites by default */
   var max = 15;
   if (document.location.href.indexOf("show=all") != -1) {
-   max = sortedSites.length;
+    max = sortedSites.length;
   }
 
   /* Add total row. */
@@ -84,7 +90,7 @@ function addLocalDisplay() {
   cell = document.createElement("td");
   cell.appendChild(document.createTextNode(("100")));
   row.appendChild(cell);
-  row = setPercentageBG(row,0);
+  row = setPercentageBG(row, 0);
   tbody.appendChild(row);
 
   var maxTime = 0;
@@ -93,35 +99,35 @@ function addLocalDisplay() {
   }
   var relativePct = 0;
   for (var index = 0; ((index < sortedSites.length) && (index < max));
-      index++ ){
-   var site = sortedSites[index][0];
-   row = document.createElement("tr");
-   cell = document.createElement("td");
-   var removeImage = document.createElement("img");
-   removeImage.src = chrome.extension.getURL("images/remove.png");
-   removeImage.title = "Remove and stop tracking.";
-   removeImage.width = 10;
-   removeImage.height = 10;
-   removeImage.onclick = addIgnoredSite(site);
-   cell.appendChild(removeImage);
-   var a = document.createElement('a');
-   var linkText = document.createTextNode(site);
-   a.appendChild(linkText);
-   a.title = "Open link in new tab";
-   a.href = site;
-   a.target = "_blank";
-   cell.appendChild(a);
-   row.appendChild(cell);
-   cell = document.createElement("td");
-   cell.appendChild(document.createTextNode(secondsToString(sites[site])));
-   row.appendChild(cell);
-   cell = document.createElement("td");
-   cell.appendChild(document.createTextNode(
-     (sites[site] / totalTime * 100).toFixed(2)));
-   relativePct = (sites[site]/maxTime*100).toFixed(2);
-   row = setPercentageBG(row,relativePct);
-   row.appendChild(cell);
-   tbody.appendChild(row);
+    index++) {
+    var site = sortedSites[index][0];
+    row = document.createElement("tr");
+    cell = document.createElement("td");
+    var removeImage = document.createElement("img");
+    removeImage.src = chrome.extension.getURL("images/remove.png");
+    removeImage.title = "Remove and stop tracking.";
+    removeImage.width = 10;
+    removeImage.height = 10;
+    removeImage.onclick = addIgnoredSite(site);
+    cell.appendChild(removeImage);
+    var a = document.createElement('a');
+    var linkText = document.createTextNode(site);
+    a.appendChild(linkText);
+    a.title = "Open link in new tab";
+    a.href = site;
+    a.target = "_blank";
+    cell.appendChild(a);
+    row.appendChild(cell);
+    cell = document.createElement("td");
+    cell.appendChild(document.createTextNode(secondsToString(sites[site])));
+    row.appendChild(cell);
+    cell = document.createElement("td");
+    cell.appendChild(document.createTextNode(
+      (sites[site] / totalTime * 100).toFixed(2)));
+    relativePct = (sites[site] / maxTime * 100).toFixed(2);
+    row = setPercentageBG(row, relativePct);
+    row.appendChild(cell);
+    tbody.appendChild(row);
   }
 
   /* Show the "Show All" link if there are some sites we didn't show. */
@@ -129,7 +135,9 @@ function addLocalDisplay() {
     /* Add an option to show all stats */
     var showAllLink = document.createElement("a");
     showAllLink.onclick = function() {
-     chrome.tabs.create({url: "popup.html?show=all"});
+      chrome.tabs.create({
+        url: "popup.html?show=all"
+      });
     }
     showAllLink.setAttribute("id", "show");
     showAllLink.setAttribute("href", "javascript:void(0)");
@@ -142,27 +150,31 @@ function addLocalDisplay() {
   }
 }
 
-function setPercentageBG(row,pct) {
+function setPercentageBG(row, pct) {
   var color = "#e8edff";
-  row.style.backgroundImage = "-webkit-linear-gradient(left, "+color+" "+pct+"%,#ffffff "+pct+"%)";
-  row.style.backgroundImage = "    -moz-linear-gradient(left, "+color+" "+pct+"%, #ffffff "+pct+"%)";
-  row.style.backgroundImage = "     -ms-linear-gradient(left, "+color+" "+pct+"%,#ffffff "+pct+"%)";
-  row.style.backgroundImage = "      -o-linear-gradient(left, "+color+" "+pct+"%,#ffffff "+pct+"%)";
-  row.style.backgroundImage = "         linear-gradient(to right, "+color+" "+pct+"%,#ffffff "+pct+"%)";
+  row.style.backgroundImage = "-webkit-linear-gradient(left, " + color + " " + pct + "%,#ffffff " + pct + "%)";
+  row.style.backgroundImage = "    -moz-linear-gradient(left, " + color + " " + pct + "%, #ffffff " + pct + "%)";
+  row.style.backgroundImage = "     -ms-linear-gradient(left, " + color + " " + pct + "%,#ffffff " + pct + "%)";
+  row.style.backgroundImage = "      -o-linear-gradient(left, " + color + " " + pct + "%,#ffffff " + pct + "%)";
+  row.style.backgroundImage = "         linear-gradient(to right, " + color + " " + pct + "%,#ffffff " + pct + "%)";
   return row;
 }
 
 function sendStats() {
-  chrome.extension.sendRequest({action: "sendStats"}, function(response) {
-   /* Reload the iframe. */
-   var iframe = document.getElementById("stats_frame");
-   iframe.src = iframe.src;
+  chrome.extension.sendRequest({
+    action: "sendStats"
+  }, function(response) {
+    /* Reload the iframe. */
+    var iframe = document.getElementById("stats_frame");
+    iframe.src = iframe.src;
   });
 }
 
 function clearStats() {
-  chrome.extension.sendRequest({action: "clearStats"}, function(response) {
-   initialize();
+  chrome.extension.sendRequest({
+    action: "clearStats"
+  }, function(response) {
+    initialize();
   });
 }
 
@@ -176,27 +188,33 @@ function initialize() {
     }
     div.appendChild(
       document.createTextNode("Last Reset: " + new Date(
-        config.lastClearTime).toString()));
+          config.lastClearTime).toString()));
   }
 
   var nextClearStats = config.nextTimeToClear;
   if (nextClearStats) {
-   nextClearStats = parseInt(nextClearStats, 10);
-   nextClearStats = new Date(nextClearStats);
-   var nextClearDiv = document.getElementById("nextClear");
-   if (nextClearDiv.childNodes.length == 1) {
-     nextClearDiv.removeChild(nextClearDiv.childNodes[0]);
-   }
-   nextClearDiv.appendChild(
-     document.createTextNode("Next Reset: " + nextClearStats.toString()));
+    nextClearStats = parseInt(nextClearStats, 10);
+    nextClearStats = new Date(nextClearStats);
+    var nextClearDiv = document.getElementById("nextClear");
+    if (nextClearDiv.childNodes.length == 1) {
+      nextClearDiv.removeChild(nextClearDiv.childNodes[0]);
+    }
+    nextClearDiv.appendChild(
+      document.createTextNode("Next Reset: " + nextClearStats.toString()));
   }
 }
 
 document.addEventListener("DOMContentLoaded", function() {
   document.getElementById("clear").addEventListener("click",
-    function() { if (confirm("Are you sure?")) { clearStats(); }});
+    function() {
+      if (confirm("Are you sure?")) {
+        clearStats();
+      }
+    });
   document.getElementById("options").addEventListener("click",
-      function() { chrome.runtime.openOptionsPage(); });
+    function() {
+      chrome.runtime.openOptionsPage();
+    });
   var buttons = document.querySelectorAll("button");
   for (var i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener("click", function(e) {

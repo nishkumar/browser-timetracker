@@ -10,8 +10,15 @@
   "permissions": [
     "alarms",
     "idle",
-    "tabs"
+    "tabs",
+    "activeTab",
+    "https://www.reddit.com/*"
   ],
+  "content_scripts": [{
+    "matches": ["https://www.reddit.com/*"],
+    "js": ["myscript.js"],
+    "run_at": "document_end"
+  }],
   "browser_action": {
     "default_icon": "images/icon.png",
     "default_title": "BeeTime Tracker",

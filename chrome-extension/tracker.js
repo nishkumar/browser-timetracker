@@ -31,6 +31,7 @@ function Tracker(config, sites) {
     if (idleState == "active") {
       config.idle = false;
       self._updateTimeWithCurrentTab();
+      alert("I see a change");
     } else {
       config.idle = true;
       self._sites.setCurrentFocus(null);
@@ -38,7 +39,9 @@ function Tracker(config, sites) {
   });
   chrome.alarms.create(
     "updateTime",
-    {periodInMinutes: config.updateTimePeriodMinutes});
+    {
+      periodInMinutes: config.updateTimePeriodMinutes
+    });
   chrome.alarms.onAlarm.addListener(function(alarm) {
     if (alarm.name == "updateTime") {
       // These event gets fired on a periodic basis and isn't triggered
@@ -64,7 +67,10 @@ function Tracker(config, sites) {
 
 Tracker.prototype._updateTimeWithCurrentTab = function() {
   var self = this;
-  chrome.tabs.query({active: true, lastFocusedWindow: true}, function(tabs) {
+  chrome.tabs.query({
+    active: true,
+    lastFocusedWindow: true
+  }, function(tabs) {
     if (tabs.length == 1) {
       // Is the tab in the currently focused window? If not, assume Chrome
       // is out of focus. Although we ask for the lastFocusedWindow, it's
