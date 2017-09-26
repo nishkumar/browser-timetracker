@@ -12,7 +12,7 @@
 // setTimeout(show_msg, 3000);
 // setTimeout(show_original, 1000);
 
-// 
+//
 // (function() {
 //   var img = "<img src='https://slm.smalldata.io/static/images/404.jpg' alt='Loading'/>";
 //
@@ -30,3 +30,32 @@
 //   }, 100);
 //
 // })();
+// document.body.style.backgroundColor = "#AA0000";
+
+var elemDiv = document.createElement('div');
+document.body.appendChild(elemDiv);
+
+setTimeout(function() {
+  elemDiv.style.cssText = 'position:absolute;width:100%;height:100%;top:0;z-index:999;background:rgba(255, 255, 255, .1);';
+  document.body.appendChild(elemDiv);
+}, 1000);
+
+setTimeout(function() {
+  elemDiv.style.cssText = 'position:absolute;width:100%;height:100%;top:0;z-index:999;background:rgba(255, 255, 255, .3);';
+  document.body.appendChild(elemDiv);
+}, 3000);
+
+setTimeout(function() {
+  elemDiv.style.cssText = 'position:absolute;width:100%;height:100%;top:0;z-index:999;background:rgba(255, 255, 255, .5);';
+  document.body.appendChild(elemDiv);
+}, 5000);
+
+setTimeout(function() {
+  elemDiv.style.cssText = 'position:absolute;width:100%;height:100%;top:0;z-index:999;background:rgba(255, 255, 255, .7);';
+  document.body.appendChild(elemDiv);
+}, 7000);
+
+setTimeout(function() {
+  elemDiv.style.cssText = 'position:absolute;width:100%;height:100%;top:0;z-index:999;background:rgba(255, 255, 255, .9);';
+  document.body.appendChild(elemDiv);
+}, 9000);

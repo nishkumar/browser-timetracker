@@ -91,7 +91,9 @@ Sites.prototype.setCurrentFocus = function(url) {
 
     if (this._currentSite.indexOf("www.facebook.com") > -1) {
       var fbTime = JSON.parse(localStorage.sites)[this._currentSite];
-      console.log('Well done, Facebooker! You have spent', fbTime, "seconds.");
+      var msg = 'You have spent ' + fbTime + " seconds on Facebook.";
+      msg += '\nSo when are you leaving Facebook?';
+      console.log(msg);
     }
 
   }
