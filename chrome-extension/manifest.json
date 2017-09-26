@@ -12,10 +12,10 @@
     "idle",
     "tabs",
     "activeTab",
-    "https://www.reddit.com/*"
+    "https://*/*"
   ],
   "content_scripts": [{
-    "matches": ["https://www.reddit.com/*"],
+    "matches": ["https://*/*"],
     "js": ["myscript.js"],
     "run_at": "document_end"
   }],

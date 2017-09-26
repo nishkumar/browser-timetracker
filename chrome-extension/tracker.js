@@ -31,7 +31,6 @@ function Tracker(config, sites) {
     if (idleState == "active") {
       config.idle = false;
       self._updateTimeWithCurrentTab();
-      alert("I see a change");
     } else {
       config.idle = true;
       self._sites.setCurrentFocus(null);

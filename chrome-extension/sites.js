@@ -48,8 +48,7 @@ Sites.prototype._updateTime = function() {
     return;
   }
   var delta = new Date() - this._startTime;
-  console.log("Site: " + this._currentSite + " Delta = " + delta / 1000);
-  console.log(new Date(), "(" + delta / 1000 + " secs):", this._currentSite);
+  // console.log("*updateTime* " + new Date(), "(" + delta / 1000 + " secs):", this._currentSite);
   if (delta / 1000 / 60 > 2 * this._config.updateTimePeriodMinutes) {
     console.log("Delta of " + delta / 1000 + " seconds too long; ignored.");
     return;
@@ -62,14 +61,14 @@ Sites.prototype._updateTime = function() {
   localStorage.sites = JSON.stringify(sites);
 };
 
+
 /**
  * This method should be called whenever there is a potential focus change.
  * Provide url=null if Chrome is out of focus.
  */
 Sites.prototype.setCurrentFocus = function(url) {
-  console.log("setCurrentFocus: " + url);
   this._updateTime();
-  if (url == null) {
+  if (url === null) {
     this._currentSite = null;
     this._startTime = null;
     chrome.browserAction.setIcon(
@@ -89,6 +88,12 @@ Sites.prototype.setCurrentFocus = function(url) {
           38: 'images/icon38.png'
         }
       });
+
+    if (this._currentSite.indexOf("www.facebook.com") > -1) {
+      var fbTime = JSON.parse(localStorage.sites)[this._currentSite];
+      console.log('Well done, Facebooker! You have spent', fbTime, "seconds.");
+    }
+
   }
 };
 
