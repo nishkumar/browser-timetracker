@@ -68,7 +68,7 @@ Sites.prototype._updateTime = function() {
  */
 Sites.prototype.setCurrentFocus = function(url) {
   this._updateTime();
-  if (url === null) {
+  if (url == null) {
     this._currentSite = null;
     this._startTime = null;
     chrome.browserAction.setIcon(
