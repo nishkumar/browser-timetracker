@@ -16,7 +16,7 @@
   ],
   "content_scripts": [{
     "matches": ["https://*/*"],
-    "js": ["myscript.js"],
+    "js": ["contentscript.js"],
     "run_at": "document_end"
   }],
   "browser_action": {
