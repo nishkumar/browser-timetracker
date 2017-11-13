@@ -110,7 +110,8 @@ Sites.prototype.setCurrentFocus = function (url) {
 function redirectPage(tab) {
     setTimeout(function () {
         console.log("tab to redirect: ", tab);
-        chrome.tabs.update(tab.id, {url: "https://medium.com/"});
+        // chrome.tabs.update(tab.id, {url: "https://medium.com/"});
+        chrome.tabs.update(tab.id, {url: "/quote.html"});
     }, 5000);
 }
 

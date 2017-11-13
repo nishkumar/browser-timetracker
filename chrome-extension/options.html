@@ -1,41 +1,83 @@
 <html>
-  <head><title>Time Tracker Preferences</title></head>
-  <script src="config.js"></script>
-  <script src="sites.js"></script>
-  <script src="options.js"></script>
-  <link rel="stylesheet" href="style.css"/>
-  <link rel="stylesheet" href="buttons.css"/>
+<head><title>Time Tracker Preferences</title></head>
+<script src="config.js"></script>
+<script src="sites.js"></script>
+<script src="options.js"></script>
+<link rel="stylesheet" href="style.css"/>
+<link rel="stylesheet" href="buttons.css"/>
 
-  <body>
-  <h3>
-    Time Tracker
-  </h3>
-  <button>New Time</button>
-  <button>Settings</button>
-  <br>
-  <br>
-  <br>
+<body>
+<div>
+  <span class="logo">
+    Timer++
+  </span>
+    <button id="btn-new-rule" class="move-right">New Rule</button>
+</div>
 
-    <b>Time Display</b>:
-    <select id="time_display" class="pure-input-1-2">
-      <option value="0">Pretty</option>
-      <option value="1">Minutes</option>
-    </select>
-    <br/>
-    <b>Manage Ignored Sites</b>: <br/>
-    <input type="text" id="new_ignored_site"></input>
-    <button id="add_ignored">Add</button><br/>
-    <select id="ignored_sites" MULTIPLE size="10">
-    </select><br/>
-    <button id="remove_ignored">Remove Selected</button>
-    <br/>
-    <b>Clear Statistics Every</b>:
-    <select id="clear_stats_interval">
-      <option value="0">never</option>
-      <option value="3600">Hour</option>
-      <option value="86400">Day</option>
-      <option value="604800">Week</option>
-    </select><br/>
-    <button id="download" class="pure-button">Download CSV</button><br/>
-  </body>
+<br>
+<br>
+<br>
+
+<b>Time Display</b>:
+<select id="time_display" class="pure-input-1-2">
+    <option value="0">Pretty</option>
+    <option value="1">Minutes</option>
+</select>
+<br/>
+<b>Manage Ignored Sites</b>: <br/>
+<input type="text" id="new_ignored_site"></input>
+<button id="add_ignored">Add</button>
+<br/>
+<select id="ignored_sites" MULTIPLE size="10">
+</select><br/>
+<button id="remove_ignored">Remove Selected</button>
+<br/>
+<b>Clear Statistics Every</b>:
+<select id="clear_stats_interval">
+    <option value="0">never</option>
+    <option value="3600">Hour</option>
+    <option value="86400">Day</option>
+    <option value="604800">Week</option>
+</select><br/>
+<button id="download" class="pure-button">Download CSV</button>
+<br/>
+
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <br>
+
+        <label> From Site </label>
+
+        <br>
+
+        <input type="text" class="input-text" id="input-domain-src" placeholder="domain.com">
+        <br>
+
+        <label> Rule Type </label>
+        <br>
+
+        <button id="btn-redirect" class="btn-with-img">Redirect</button>
+        <button id="btn-quote" class="btn-with-img">Quote</button>
+
+        <br>
+        <label id="label-dest-site"> Destination Site </label>
+        <label id="label-your-quote" class="hidden"> Quote </label>
+
+        <input type="text" class="input-text" id="input-domain-dest" placeholder="http://website.com">
+        <input type="text" class="input-text hidden" id="input-your-quote" placeholder="Your quote">
+
+        <div class="submit-cancel">
+            <button class="btn-cancel">Cancel</button>
+            <button class="btn-submit move-right ">Save</button>
+        </div>
+    </div>
+
+</div>
+
+</body>
 </html>
