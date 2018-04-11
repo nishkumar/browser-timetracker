@@ -9,9 +9,9 @@
 <body>
 <div>
   <span class="logo">
-    Timer++
+      Focus++
   </span>
-    <button id="btn-new-rule" class="move-right">New Rule</button>
+    <a href="#" id="btn-new-rule" class="move-right">Add Rule</a>
 </div>
 
 <br>
@@ -51,25 +51,49 @@
         <span class="close">&times;</span>
         <br>
 
-        <label> From Site </label>
+        <div>
+            <label> From Site </label>
+            <br>
 
-        <br>
+            <input type="text" class="input-text" id="input-domain-src" placeholder="domain.com">
+        </div>
 
-        <input type="text" class="input-text" id="input-domain-src" placeholder="domain.com">
-        <br>
+        <div>
+            <br>
+            <label> Rule Type </label>
+            <br>
 
-        <label> Rule Type </label>
-        <br>
+            <button id="btn-redirect" class="btn-with-img">Redirect</button>
+            <button id="btn-quote" class="btn-with-img">Quote</button>
 
-        <button id="btn-redirect" class="btn-with-img">Redirect</button>
-        <button id="btn-quote" class="btn-with-img">Quote</button>
+            <br>
+            <br>
+            <label id="label-dest-site"> Destination Site </label>
+            <label id="label-your-quote" class="hidden"> Quote </label>
 
-        <br>
-        <label id="label-dest-site"> Destination Site </label>
-        <label id="label-your-quote" class="hidden"> Quote </label>
+            <input type="text" class="input-text" id="input-domain-dest" placeholder="http://website.com">
+            <input type="text" class="input-text hidden" id="input-your-quote" placeholder="Your quote">
+        </div>
 
-        <input type="text" class="input-text" id="input-domain-dest" placeholder="http://website.com">
-        <input type="text" class="input-text hidden" id="input-your-quote" placeholder="Your quote">
+        <div>
+            <br>
+            <label>Distraction Duration</label>
+            <br>
+            <button id="btn-none" class="btn-with-img">None</button>
+            <button id="btn-5mins" class="btn-with-img">5 mins</button>
+            <button id="btn-10mins" class="btn-with-img">10 mins</button>
+            <button id="btn-30mins" class="btn-with-img">30 mins</button>
+            <button id="btn-30mins" class="btn-with-img">45 mins</button>
+            <button id="btn-30mins" class="btn-with-img">1 hour</button>
+            <br>
+            <button id="btn-30mins" class="btn-with-img">1.5 hours</button>
+            <button id="btn-30mins" class="btn-with-img">2 hours</button>
+            <button id="btn-30mins" class="btn-with-img">3 hours</button>
+            <button id="btn-30mins" class="btn-with-img">6 hours</button>
+            <button id="btn-30mins" class="btn-with-img">8 hours</button>
+            <button id="btn-30mins" class="btn-with-img">12 hours</button>
+            <br>
+        </div>
 
         <div class="submit-cancel">
             <button class="btn-cancel">Cancel</button>

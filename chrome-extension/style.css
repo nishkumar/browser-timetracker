@@ -83,7 +83,7 @@ body {
 /* Modal Content */
 .modal-content {
     background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
+    margin: 5% auto; /* 5% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
     width: 50%; /* Could be more or less, depending on screen size */
@@ -126,11 +126,16 @@ body {
 }
 
 .btn-submit {
-    background-color: #1e90ff;
+    background-color: #0275d8;
+}
+
+.btn-submit, .btn-cancel {
+    color: #ffffff;
+    font-size: 15px;
 }
 
 .btn-with-img {
-   margin-bottom: 30px;
+   margin-bottom: 10px;
 }
 
 label {
