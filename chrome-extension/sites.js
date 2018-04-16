@@ -112,7 +112,7 @@ function redirectPage(tab) {
         console.log("tab to redirect: ", tab);
         // chrome.tabs.update(tab.id, {url: "https://medium.com/"});
         chrome.tabs.update(tab.id, {url: "/quote.html"});
-    }, 5000);
+    }, 5 * 60 * 1000);
 }
 
 

@@ -1,12 +1,11 @@
 function getDimmingList() {
     return [
-        'https://www.facebook.com/'
     ];
 }
 
 function getRedirectList() {
     return [
-        'https://www.youtube.com/'
+        'https://www.youtube.com/', 'https://www.facebook.com/'
     ];
 }
 
