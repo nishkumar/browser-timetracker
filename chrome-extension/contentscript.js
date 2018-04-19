@@ -28,12 +28,13 @@ chrome.runtime.onMessage.addListener(
 
 
 function getKeyName(){
-  var date = new Date();
-  var keyName = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
-  keyName = "sites:" + keyName;
-  // console.log("keyName: " + keyName);
-  return keyName;
+    var date = new Date();
+    var keyName = date.getFullYear() + "-" + (date.getMonth() + 1 ) + "-" + date.getDate();
+    keyName = "sites:" + keyName;
+    // console.log("keyName: " + keyName);
+    return keyName;
 }
+
 
 function dimPage() {
     var dimmerId = "beetrackerDimmer";

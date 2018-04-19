@@ -21,7 +21,7 @@ function Sites(config) {
 
 function getKeyName(){
   var date = new Date();
-  var keyName = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
+  var keyName = date.getFullYear() + "-" + (date.getMonth() + 1 ) + "-" + date.getDate();
   keyName = "sites:" + keyName;
   // console.log("keyName: " + keyName);
   return keyName;
