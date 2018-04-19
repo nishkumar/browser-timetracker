@@ -131,7 +131,8 @@ function downloadDaily() {
                 }
             }
 
-            data.push(key.replace("sites:", "") + "," + entry.join(","));
+            key = key.replace("sites:", "");
+            data.push(key + "," + entry.join(","));
         }
     }
 
