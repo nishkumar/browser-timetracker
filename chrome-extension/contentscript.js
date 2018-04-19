@@ -11,7 +11,10 @@ function getRedirectList() {
 
 chrome.runtime.onMessage.addListener(
     function (msgReceived, sender, sendResponse) {
-        console.log("content.script received: ", msgReceived);
+        // console.log("content.script received: ", msgReceived);
+        // var date = new Date();
+        // var yyyymmdd = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate()
+        console.log("getKeyName() = " + getKeyName());
         var url = msgReceived.currentTab.url;
 
         if (getRedirectList().indexOf(url) > -1) {
@@ -22,6 +25,15 @@ chrome.runtime.onMessage.addListener(
             dimPage();
         }
     });
+
+
+function getKeyName(){
+  var date = new Date();
+  var keyName = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
+  keyName = "sites:" + keyName;
+  // console.log("keyName: " + keyName);
+  return keyName;
+}
 
 function dimPage() {
     var dimmerId = "beetrackerDimmer";

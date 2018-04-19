@@ -8,10 +8,25 @@ function Sites(config) {
     if (!localStorage.sites) {
         localStorage.sites = JSON.stringify({});
     }
+    // store sites data for each day separately
+    var key = getKeyName();
+    if (localStorage.getItem(key) === null) {
+        localStorage.setItem( key, JSON.stringify({}));
+    }
+    console.log("localStorage.getItem("+ key +") = "+ localStorage.getItem(key));
     this._currentSite = null;
     this._siteRegexp = /^(\w+:\/\/[^\/]+).*$/;
     this._startTime = null;
 }
+
+function getKeyName(){
+  var date = new Date();
+  var keyName = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
+  keyName = "sites:" + keyName;
+  // console.log("keyName: " + keyName);
+  return keyName;
+}
+
 
 /**
  * Returns the a dictionary of site -> seconds.
@@ -28,6 +43,28 @@ Object.defineProperty(Sites.prototype, "sites", {
         return sites;
     }
 });
+
+
+
+/**
+ * Returns the a dictionary of sitesToday -> seconds.
+ */
+// Object.defineProperty(Sites.prototype, sitesToday, {
+//     get: function () {
+//         // Get per day stats
+//         var key = getKeyName();
+//         var st = JSON.parse(localStorage.getItem(sitesToday));
+//         var sitesToday = {};
+//         for (var site in st) {
+//             if (st.hasOwnProperty(site) && !this._config.isIgnoredSite(site)) {
+//                 sitesToday[site] = st[site];
+//             }
+//         }
+//         console.log("sitesToday=" + sitesToday);
+//         return sitesToday;
+//     }
+// });
+
 
 /**
  * Returns just the site/domain from the url. Includes the protocol.
@@ -47,6 +84,7 @@ Sites.prototype._updateTime = function () {
     if (!this._currentSite || !this._startTime) {
         return;
     }
+
     var delta = new Date() - this._startTime;
     // console.log("*updateTime* " + new Date(), "(" + delta / 1000 + " secs):", this._currentSite);
     if (delta / 1000 / 60 > 2 * this._config.updateTimePeriodMinutes) {
@@ -59,6 +97,15 @@ Sites.prototype._updateTime = function () {
     }
     sites[this._currentSite] += delta / 1000;
     localStorage.sites = JSON.stringify(sites);
+
+    // Store data in sitesToday
+    var sitesToday = getSitesToday();
+    var key = getKeyName();
+    if (!sitesToday[this._currentSite]) {
+        sitesToday[this._currentSite] = 0;
+    }
+    sitesToday[this._currentSite] += delta / 1000;
+    localStorage.setItem( key, JSON.stringify(sitesToday));
 };
 
 /**
@@ -115,6 +162,24 @@ function redirectPage(tab) {
     }, 5 * 60 * 1000);
 }
 
+
+/*
+ * Get sites for today
+ */
+
+ function getSitesToday() {
+   // Get per day stats
+   var key = getKeyName();
+   var st = JSON.parse(localStorage.getItem(key));
+   var sitesToday = {};
+   for (var site in st) {
+       if (st.hasOwnProperty(site)) {
+           sitesToday[site] = st[site];
+       }
+   }
+   console.log("sitesToday=" + sitesToday);
+   return sitesToday;
+ }
 
 /**
  * Clear all statistics.

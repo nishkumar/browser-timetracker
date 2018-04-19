@@ -107,6 +107,30 @@ function download() {
     window.open(encodeURI(csvContent));
 }
 
+function downloadDaily() {
+    var csvContent = "data:text/csv;charset=utf-8,";
+    var data = [];
+
+    for ( var i=0, len = localStorage.length; i < len; i++) {
+        var key =  localStorage.key( i );
+        if(key === "sites") continue;
+
+        // Only parse dailySites data
+        if(key.indexOf("sites:") >= 0){
+            var dailySites = JSON.parse(localStorage.getItem(key));
+            var entry = "";
+            for (var site in dailySites){
+                entry += site + "=" +  dailySites[site] + ",";
+            }
+            data.push(key.replace("sites:", "") + "," + entry);
+        }
+    }
+
+    csvContent += data.join("\n");
+    window.open(encodeURI(csvContent));
+}
+
+
 function open_modal() {
     document.getElementById('myModal').style.display = "block";
 }
@@ -155,6 +179,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("clear_stats_interval").addEventListener("change", updateClearStatsInterval);
     document.getElementById("time_display").addEventListener("change", updateTimeDisplay);
     document.getElementById("download").addEventListener("click", download);
+    document.getElementById("download-daily").addEventListener("click", downloadDaily);
     document.getElementById("btn-new-rule").addEventListener("click", open_modal);
     document.getElementById("btn-redirect").addEventListener("click", open_redirect);
     document.getElementById("btn-quote").addEventListener("click", open_quote);
@@ -164,5 +189,3 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("input-your-quote").addEventListener("click", input_your_quote);
     restoreOptions();
 });
-
-
