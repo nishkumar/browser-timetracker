@@ -107,10 +107,13 @@ function download() {
     window.open(encodeURI(csvContent));
 }
 
+
 function downloadDaily() {
     var csvContent = "data:text/csv;charset=utf-8,";
     var data = [];
 
+    // Create header
+    data.push("Date" + "," + "Facebook" + "," + "Youtube" );
     for ( var i=0, len = localStorage.length; i < len; i++) {
         var key =  localStorage.key( i );
         if(key === "sites") continue;
@@ -118,17 +121,47 @@ function downloadDaily() {
         // Only parse dailySites data
         if(key.indexOf("sites:") >= 0){
             var dailySites = JSON.parse(localStorage.getItem(key));
-            var entry = "";
+            var entry = ["0", "0"];
             for (var site in dailySites){
-                entry += site + "=" +  dailySites[site] + ",";
+                if(site.indexOf("www.facebook.com") >= 0){
+                  entry[0] = dailySites[site];
+                }
+                if(site.indexOf("www.youtube.com") >= 0){
+                  entry[1] = dailySites[site];
+                }
             }
-            data.push(key.replace("sites:", "") + "," + entry);
+
+            data.push(key.replace("sites:", "") + "," + entry.join(","));
         }
     }
 
     csvContent += data.join("\n");
     window.open(encodeURI(csvContent));
 }
+
+
+// function downloadDaily() {
+//     var csvContent = "data:text/csv;charset=utf-8,";
+//     var data = [];
+//
+//     for ( var i=0, len = localStorage.length; i < len; i++) {
+//         var key =  localStorage.key( i );
+//         if(key === "sites") continue;
+//
+//         // Only parse dailySites data
+//         if(key.indexOf("sites:") >= 0){
+//             var dailySites = JSON.parse(localStorage.getItem(key));
+//             var entry = "";
+//             for (var site in dailySites){
+//                 entry += site + "=" +  dailySites[site] + ",";
+//             }
+//             data.push(key.replace("sites:", "") + "," + entry);
+//         }
+//     }
+//
+//     csvContent += data.join("\n");
+//     window.open(encodeURI(csvContent));
+// }
 
 
 function open_modal() {
