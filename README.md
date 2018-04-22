@@ -4,14 +4,19 @@ Monitors websites visited and how much time is spent on each site.
 ## How to install?
 + Step 1: Clone this github repo or download the github project as a zip using the ``` clone or download ``` button.
 ![Clone or Download](https://github.com/nishkumar/browser-timetracker/blob/master/chrome-extension/images/clone-or-download.png)
+
 + Step 2: Type ``` chrome://extensions ``` in a chrome tab to bring up the extensions page.
 ![Clone or Download](https://github.com/nishkumar/browser-timetracker/blob/master/chrome-extension/images/chrome-extensions.png)
+
 + Step 3: Check ``` Developer mode ``` to enable loading unpacked extensions.
 ![Clone or Download](https://github.com/nishkumar/browser-timetracker/blob/master/chrome-extension/images/developer-mode.png)
+
 + Step 4: Finally, click ``` Load unpacked extension ``` or simply drag the Extension folder onto the page to load up the extension. You should immediately see the extension show up as a Browser Action with your icon in the toolbar window of the current tab.
 ![Clone or Download](https://github.com/nishkumar/browser-timetracker/blob/master/chrome-extension/images/load-unpacked.png)
+
 + Step 5: Verify that the extension has been installed as the extension details will appear as shown below. The extension logo will also appear on the right hand side of the address bar on the browser.
 ![Clone or Download](https://github.com/nishkumar/browser-timetracker/blob/master/chrome-extension/images/beetime.png)
+
 
 ## Getting started
 What you need to know to get started.
