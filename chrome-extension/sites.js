@@ -171,7 +171,7 @@ function redirectPage(tab) {
 
         redirectURL = "/quote.html?site=" + site + "&time=" + time;
         chrome.tabs.update(tab.id, {url: redirectURL});
-    }, 1 * 60 * 1000);
+    }, 5 * 60 * 1000);
 }
 
 
