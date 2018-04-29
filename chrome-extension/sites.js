@@ -144,8 +144,18 @@ Sites.prototype.setCurrentFocus = function (url) {
             var fbTime = JSON.parse(localStorage.sites)[this._currentSite];
             var msg = 'You have spent ' + fbTime + " seconds on Facebook.";
             msg += '\nSo when are you leaving Facebook?';
-            console.log(msg);
+        }
 
+        if (this._currentSite.indexOf("quote.html") > -1) {
+            var time = JSON.parse(localStorage.sites)[this._currentSite];
+            if (this._currentSite.indexOf("url=facebook") > -1) {
+                var msg = 'You have spent ' + time + " seconds on Facebook.";
+            }
+            if (this._currentSite.indexOf("url=youtube") > -1) {
+                var msg = 'You have spent ' + time + " seconds on Youtube.";
+            }
+            console.log(msg);
+            document.getElementById("timeSpent").innerHTML = msg;
         }
 
         chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
@@ -161,8 +171,25 @@ function redirectPage(tab) {
     setTimeout(function () {
         console.log("tab to redirect: ", tab);
         // chrome.tabs.update(tab.id, {url: "https://medium.com/"});
-        chrome.tabs.update(tab.id, {url: "/quote.html"});
-    }, 5 * 60 * 1000);
+        sites = getSitesToday();
+
+        console.log("sites list:" + sites);
+        var site = "unknown";
+        if (tab.url.indexOf("www.facebook.com") > -1) {
+            site = "Facebook";
+            var time = sites["https://www.facebook.com"];
+            var msg = 'You have spent ' + time + " seconds on Facebook today.";
+        }
+
+        if (tab.url.indexOf("www.youtube.com") > -1) {
+            site = "Youtube";
+            var time = sites["https://www.youtube.com"];
+            var msg = 'You have spent ' + time + " seconds on Youtube today.";
+        }
+
+        redirectURL = "/quote.html?site=" + site + "&time=" + time;
+        chrome.tabs.update(tab.id, {url: redirectURL});
+    }, 1 * 5 * 1000);
 }
 
 
