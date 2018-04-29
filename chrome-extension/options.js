@@ -113,7 +113,7 @@ function downloadDaily() {
     var data = [];
 
     // Create header
-    data.push("Date" + "," + "Facebook" + "," + "Youtube" );
+    data.push("Date" + "," + "Experiment" + "," + "Facebook" + "," + "Youtube" );
     for ( var i=0, len = localStorage.length; i < len; i++) {
         var key =  localStorage.key( i );
         if(key === "sites") continue;
@@ -131,8 +131,18 @@ function downloadDaily() {
                 }
             }
 
-            key = key.replace("sites:", "");
-            data.push(key + "," + entry.join(","));
+            experiment = "unknown";
+            // Check experiment type
+            if(key.indexOf("intervention") >= 0){
+              experiment = "intervention";
+              key = key.replace("sites:intervention@", "");
+            }else{
+              experiment = "control";
+              key = key.replace("sites:", "");
+            }
+
+
+            data.push(key + "," + experiment + "," + entry.join(","));
         }
     }
 
