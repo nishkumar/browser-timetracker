@@ -14,14 +14,13 @@ chrome.runtime.onMessage.addListener(
         // console.log("content.script received: ", msgReceived);
         // var date = new Date();
         // var yyyymmdd = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate()
-        console.log("getKeyName() = " + getKeyName());
         var url = msgReceived.currentTab.url;
 
         if (getRedirectList().indexOf(url) > -1) {
-            console.log("Now redirecting: ", url);
+            // console.log("Now redirecting: ", url);
             chrome.runtime.sendMessage({action: "redirect", tabToRedirect: msgReceived.currentTab});
         } else if (getDimmingList().indexOf(url) > -1) {
-            console.log("Now dimming: ", url);
+            // console.log("Now dimming: ", url);
             dimPage();
         }
     });

@@ -1,7 +1,11 @@
 document.addEventListener("DOMContentLoaded", function(){
   var site = GetURLParameter('site');
   var time = parseInt(GetURLParameter('time'));
-  time = Math.round(time/60);
+  if(time > 60){
+    time = Math.round(time/60);
+  }else{
+    time = 0;
+  }
 
   var msg = 'You have spent ' + time + " minutes on "+ site + " today.";
   document.getElementById("timeSpent").innerHTML = msg;

@@ -13,7 +13,6 @@ function Sites(config) {
     if (localStorage.getItem(key) === null) {
         localStorage.setItem( key, JSON.stringify({}));
     }
-    console.log("localStorage.getItem("+ key +") = "+ localStorage.getItem(key));
     this._currentSite = null;
     this._siteRegexp = /^(\w+:\/\/[^\/]+).*$/;
     this._startTime = null;
@@ -146,18 +145,6 @@ Sites.prototype.setCurrentFocus = function (url) {
             msg += '\nSo when are you leaving Facebook?';
         }
 
-        if (this._currentSite.indexOf("quote.html") > -1) {
-            var time = JSON.parse(localStorage.sites)[this._currentSite];
-            if (this._currentSite.indexOf("url=facebook") > -1) {
-                var msg = 'You have spent ' + time + " seconds on Facebook.";
-            }
-            if (this._currentSite.indexOf("url=youtube") > -1) {
-                var msg = 'You have spent ' + time + " seconds on Youtube.";
-            }
-            console.log(msg);
-            document.getElementById("timeSpent").innerHTML = msg;
-        }
-
         chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
             console.log("sites.js tabs[0]: ", tabs[0]);
             chrome.tabs.sendMessage(tabs[0].id, {currentTab: tabs[0]});
@@ -169,27 +156,22 @@ Sites.prototype.setCurrentFocus = function (url) {
 
 function redirectPage(tab) {
     setTimeout(function () {
-        console.log("tab to redirect: ", tab);
         // chrome.tabs.update(tab.id, {url: "https://medium.com/"});
         sites = getSitesToday();
-
-        console.log("sites list:" + sites);
         var site = "unknown";
         if (tab.url.indexOf("www.facebook.com") > -1) {
             site = "Facebook";
             var time = sites["https://www.facebook.com"];
-            var msg = 'You have spent ' + time + " seconds on Facebook today.";
         }
 
         if (tab.url.indexOf("www.youtube.com") > -1) {
             site = "Youtube";
             var time = sites["https://www.youtube.com"];
-            var msg = 'You have spent ' + time + " seconds on Youtube today.";
         }
 
         redirectURL = "/quote.html?site=" + site + "&time=" + time;
         chrome.tabs.update(tab.id, {url: redirectURL});
-    }, 1 * 5 * 1000);
+    }, 1 * 60 * 1000);
 }
 
 
@@ -207,7 +189,6 @@ function redirectPage(tab) {
            sitesToday[site] = st[site];
        }
    }
-   console.log("sitesToday=" + sitesToday);
    return sitesToday;
  }
 
@@ -221,7 +202,6 @@ Sites.prototype.clear = function () {
 
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
-        console.log("sites request received:", request);
         if (request.action === "redirect") {
             redirectPage(request.tabToRedirect);
         }
