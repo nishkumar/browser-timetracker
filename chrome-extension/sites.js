@@ -19,10 +19,13 @@ function Sites(config) {
     this._startTime = null;
 }
 
+/**
+ *
+ */
 function getKeyName(){
   var date = new Date();
   var keyName = date.getFullYear() + "-" + (date.getMonth() + 1 ) + "-" + date.getDate();
-  keyName = "sites:" + keyName;
+  keyName = "sites:intervention@" + keyName;
   // console.log("keyName: " + keyName);
   return keyName;
 }
