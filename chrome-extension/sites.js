@@ -139,14 +139,14 @@ Sites.prototype.setCurrentFocus = function (url) {
 
         if (this._currentSite === null) return;
 
-        if (this._currentSite.indexOf("www.facebook.com") > -1) {
-            var fbTime = JSON.parse(localStorage.sites)[this._currentSite];
-            var msg = 'You have spent ' + fbTime + " seconds on Facebook.";
-            msg += '\nSo when are you leaving Facebook?';
-        }
+        // if (this._currentSite.indexOf("www.facebook.com") > -1) {
+        //     var fbTime = JSON.parse(localStorage.sites)[this._currentSite];
+        //     var msg = 'You have spent ' + fbTime + " seconds on Facebook.";
+        //     msg += '\nSo when are you leaving Facebook?';
+        // }
 
         chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
-            console.log("sites.js tabs[0]: ", tabs[0]);
+            // console.log("sites.js tabs[0]: ", tabs[0]);
             chrome.tabs.sendMessage(tabs[0].id, {currentTab: tabs[0]});
         });
 
